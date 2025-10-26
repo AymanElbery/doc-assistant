@@ -1,0 +1,134 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-900">AI Documents Assistant</h1>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-600">{{ username() }}</span>
+                <button (click)="navigateToChat()" class="btn-secondary">
+                    Go to Chat
+                </button>
+                <button (click)="logout()" class="btn-secondary">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Upload Section -->
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">Upload Documents</h2>
+
+                <div
+                    class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary-500 transition-colors">
+                    <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf,.docx,.xlsx"
+                        class="hidden" />
+
+                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                        <path
+                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <div class="mt-4">
+                        <button (click)="fileInput.click()" class="btn-primary">
+                            Choose File
+                        </button>
+                    </div>
+
+                    <p class="mt-2 text-sm text-gray-500">
+                        PDF, DOCX, or XLSX (Max 50MB)
+                    </p>
+
+                    @if (selectedFile()) {
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                        <p class="text-sm font-medium text-blue-900">{{ selectedFile()?.name }}</p>
+                        <p class="text-xs text-blue-700">{{ formatFileSize(selectedFile()?.size || 0) }}</p>
+                    </div>
+                    }
+                </div>
+
+                @if (uploadProgress() !== null) {
+                <div class="mt-4">
+                    <div class="flex justify-between text-sm text-gray-600 mb-1">
+                        <span>Uploading...</span>
+                        <span>{{ uploadProgress() }}%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                            [style.width.%]="uploadProgress()"></div>
+                    </div>
+                </div>
+                }
+
+                @if (uploadStatus()) {
+                <div class="mt-4 p-4 rounded-lg" [class.bg-green-50]="uploadStatus()?.type === 'success'"
+                    [class.bg-red-50]="uploadStatus()?.type === 'error'">
+                    <p class="text-sm font-medium" [class.text-green-900]="uploadStatus()?.type === 'success'"
+                        [class.text-red-900]="uploadStatus()?.type === 'error'">
+                        {{ uploadStatus()?.message }}
+                    </p>
+                </div>
+                }
+
+                <button (click)="uploadFile()" [disabled]="!selectedFile() || uploading()"
+                    class="btn-primary w-full mt-4 disabled:opacity-50 disabled:cursor-not-allowed">
+                    {{ uploading() ? 'Uploading...' : 'Upload Document' }}
+                </button>
+            </div>
+
+            <!-- Documents List -->
+            <div class="card">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">Your Documents</h2>
+                    <button (click)="loadDocuments()" class="text-sm text-primary-600 hover:text-primary-700">
+                        Refresh
+                    </button>
+                </div>
+
+                @if (loading()) {
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
+                    <p class="mt-2 text-sm text-gray-600">Loading documents...</p>
+                </div>
+                } @else if (documents().length === 0) {
+                <div class="text-center py-8">
+                    <p class="text-gray-500">No documents uploaded yet</p>
+                </div>
+                } @else {
+                <div class="space-y-3 max-h-96 overflow-y-auto">
+                    @for (doc of documents(); track doc.filename) {
+                    <div
+                        class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div class="flex items-center gap-3 flex-1 min-w-0">
+                            <div class="flex-shrink-0">
+                                @if (doc.filename.endsWith('.pdf')) {
+                                <svg class="h-8 w-8 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
+                                </svg>
+                                } @else if (doc.filename.endsWith('.docx')) {
+                                <svg class="h-8 w-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
+                                </svg>
+                                } @else {
+                                <svg class="h-8 w-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
+                                </svg>
+                                }
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 truncate">{{ doc.filename }}</p>
+                                <p class="text-xs text-gray-500">{{ formatFileSize(doc.size) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </main>
+</div>

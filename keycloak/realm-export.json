@@ -1,0 +1,94 @@
+{
+    "realm": "ai-docs-assistant",
+    "enabled": true,
+    "sslRequired": "none",
+    "registrationAllowed": true,
+    "loginWithEmailAllowed": true,
+    "duplicateEmailsAllowed": false,
+    "resetPasswordAllowed": true,
+    "editUsernameAllowed": false,
+    "bruteForceProtected": true,
+    "permanentLockout": false,
+    "maxFailureWaitSeconds": 900,
+    "minimumQuickLoginWaitSeconds": 60,
+    "waitIncrementSeconds": 60,
+    "quickLoginCheckMilliSeconds": 1000,
+    "maxDeltaTimeSeconds": 43200,
+    "failureFactor": 5,
+    "roles": {
+      "realm": [
+        {
+          "name": "user",
+          "description": "User role",
+          "composite": false,
+          "clientRole": false,
+          "containerId": "ai-docs-assistant"
+        }
+      ]
+    },
+    "defaultRoles": [
+      "user"
+    ],
+    "clients": [
+      {
+        "clientId": "ai-docs-client",
+        "name": "AI Documents Assistant Client",
+        "description": "Public client for Angular frontend",
+        "enabled": true,
+        "clientAuthenticatorType": "client-secret",
+        "secret": "",
+        "redirectUris": [
+          "http://localhost:4200/*",
+          "http://localhost:4200",
+          "http://localhost/*"
+        ],
+        "webOrigins": [
+          "http://localhost:4200",
+          "http://localhost",
+          "+"
+        ],
+        "publicClient": true,
+        "protocol": "openid-connect",
+        "attributes": {
+          "pkce.code.challenge.method": "S256",
+          "post.logout.redirect.uris": "http://localhost:4200/*"
+        },
+        "standardFlowEnabled": true,
+        "implicitFlowEnabled": false,
+        "directAccessGrantsEnabled": false,
+        "serviceAccountsEnabled": false,
+        "authorizationServicesEnabled": false,
+        "fullScopeAllowed": true,
+        "frontchannelLogout": true,
+        "alwaysDisplayInConsole": false,
+        "rootUrl": "http://localhost:4200",
+        "baseUrl": "http://localhost:4200"
+      }
+    ],
+    "users": [
+      {
+        "username": "demo",
+        "enabled": true,
+        "emailVerified": true,
+        "email": "demo@example.com",
+        "firstName": "Demo",
+        "lastName": "User",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "demo123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": [
+          "user"
+        ]
+      }
+    ],
+    "internationalizationEnabled": false,
+    "supportedLocales": ["en"],
+    "defaultLocale": "en",
+    "authenticationFlows": [],
+    "identityProviders": [],
+    "keycloakVersion": "26.1.0"
+  }
