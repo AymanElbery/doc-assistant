@@ -1,12 +1,12 @@
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 flex flex-col">
     <!-- Header -->
-    <header class="bg-white shadow-sm">
+    <header class="bg-white shadow-sm flex-shrink-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-900">AI Documents Assistant</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Upload Documents</h1>
             <div class="flex items-center gap-4">
                 <span class="text-sm text-gray-600">{{ username() }}</span>
                 <button (click)="navigateToChat()" class="btn-secondary">
-                    Go to Chat
+                    Back to Chat
                 </button>
                 <button (click)="logout()" class="btn-secondary">
                     Logout
@@ -16,119 +16,151 @@
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Upload Section -->
-            <div class="card">
-                <h2 class="text-xl font-semibold mb-4">Upload Documents</h2>
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Upload Area -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4">Upload New Document</h2>
 
-                <div
-                    class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary-500 transition-colors">
-                    <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf,.docx,.xlsx"
-                        class="hidden" />
-
-                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                        <path
-                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-
-                    <div class="mt-4">
-                        <button (click)="fileInput.click()" class="btn-primary">
-                            Choose File
-                        </button>
-                    </div>
-
-                    <p class="mt-2 text-sm text-gray-500">
-                        PDF, DOCX, or XLSX (Max 50MB)
-                    </p>
-
-                    @if (selectedFile()) {
-                    <div class="mt-4 p-3 bg-blue-50 rounded-lg">
-                        <p class="text-sm font-medium text-blue-900">{{ selectedFile()?.name }}</p>
-                        <p class="text-xs text-blue-700">{{ formatFileSize(selectedFile()?.size || 0) }}</p>
-                    </div>
-                    }
-                </div>
-
-                @if (uploadProgress() !== null) {
-                <div class="mt-4">
-                    <div class="flex justify-between text-sm text-gray-600 mb-1">
-                        <span>Uploading...</span>
-                        <span>{{ uploadProgress() }}%</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div class="bg-primary-600 h-2 rounded-full transition-all duration-300"
-                            [style.width.%]="uploadProgress()"></div>
-                    </div>
-                </div>
-                }
-
-                @if (uploadStatus()) {
-                <div class="mt-4 p-4 rounded-lg" [class.bg-green-50]="uploadStatus()?.type === 'success'"
-                    [class.bg-red-50]="uploadStatus()?.type === 'error'">
-                    <p class="text-sm font-medium" [class.text-green-900]="uploadStatus()?.type === 'success'"
-                        [class.text-red-900]="uploadStatus()?.type === 'error'">
-                        {{ uploadStatus()?.message }}
-                    </p>
-                </div>
-                }
-
-                <button (click)="uploadFile()" [disabled]="!selectedFile() || uploading()"
-                    class="btn-primary w-full mt-4 disabled:opacity-50 disabled:cursor-not-allowed">
-                    {{ uploading() ? 'Uploading...' : 'Upload Document' }}
-                </button>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary-500 transition-colors"
+                [class.border-primary-500]="isDragging()" (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <p class="mt-2 text-sm text-gray-600">
+                    Drag and drop your file here, or
+                </p>
+                <label class="mt-2 inline-block">
+                    <span class="btn-primary cursor-pointer">Browse Files</span>
+                    <input type="file" class="hidden" (change)="onFileSelected($event)" accept=".pdf,.docx,.xlsx" />
+                </label>
+                <p class="mt-2 text-xs text-gray-500">
+                    Supported: PDF, DOCX, XLSX (Max 50MB)
+                </p>
             </div>
 
-            <!-- Documents List -->
-            <div class="card">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-semibold">Your Documents</h2>
-                    <button (click)="loadDocuments()" class="text-sm text-primary-600 hover:text-primary-700">
-                        Refresh
+            @if (uploadProgress() > 0 && uploadProgress() < 100) { <div class="mt-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                    <span>Uploading...</span>
+                    <span>{{ uploadProgress() }}%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                        [style.width.%]="uploadProgress()">
+                    </div>
+                </div>
+        </div>
+        }
+
+        @if (uploadError()) {
+        <div class="mt-4 bg-red-50 border border-red-200 rounded-lg p-4">
+            <p class="text-sm text-red-800">{{ uploadError() }}</p>
+        </div>
+        }
+
+        @if (uploadSuccess()) {
+        <div class="mt-4 bg-green-50 border border-green-200 rounded-lg p-4">
+            <p class="text-sm text-green-800">{{ uploadSuccess() }}</p>
+        </div>
+        }
+</div>
+
+<!-- Documents List -->
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Your Documents ({{ documents().length }})</h2>
+        @if (documents().length > 0) {
+        <button (click)="deleteAllDocuments()"
+            class="text-sm text-red-600 hover:text-red-800 font-medium flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Delete All
+        </button>
+        }
+    </div>
+
+    @if (loading()) {
+    <div class="text-center py-8">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
+        <p class="mt-2 text-sm text-gray-600">Loading documents...</p>
+    </div>
+    } @else if (documents().length === 0) {
+    <div class="text-center py-8">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <p class="mt-2 text-sm text-gray-600">No documents uploaded yet</p>
+    </div>
+    } @else {
+    <div class="space-y-2">
+        @for (doc of documents(); track doc.filename) {
+        <div
+            class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center gap-4 flex-1 min-w-0">
+                <!-- File Icon -->
+                <div class="flex-shrink-0">
+                    <svg class="w-10 h-10" [class.text-red-500]="doc.extension === '.pdf'"
+                        [class.text-blue-500]="doc.extension === '.docx'"
+                        [class.text-green-500]="doc.extension === '.xlsx'" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+
+                <!-- File Info -->
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate">
+                        {{ doc.filename }}
+                    </p>
+                    <div class="flex items-center gap-3 mt-1">
+                        <p class="text-xs text-gray-500">
+                            {{ formatFileSize(doc.size) }}
+                        </p>
+                        <span class="text-gray-400">•</span>
+                        <p class="text-xs text-gray-500">
+                            {{ formatDate(doc.uploaded_at) }}
+                        </p>
+                        @if (doc.vector_count !== undefined) {
+                        <span class="text-gray-400">•</span>
+                        <p class="text-xs text-gray-500 flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+                            </svg>
+                            {{ doc.vector_count }} vectors
+                        </p>
+                        }
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-2">
+                    <button (click)="deleteDocument(doc)" [disabled]="deletingFile() === doc.filename"
+                        class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                        title="Delete document">
+                        @if (deletingFile() === doc.filename) {
+                        <div class="animate-spin h-5 w-5 border-2 border-red-600 border-t-transparent rounded-full">
+                        </div>
+                        } @else {
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        }
                     </button>
                 </div>
-
-                @if (loading()) {
-                <div class="text-center py-8">
-                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
-                    <p class="mt-2 text-sm text-gray-600">Loading documents...</p>
-                </div>
-                } @else if (documents().length === 0) {
-                <div class="text-center py-8">
-                    <p class="text-gray-500">No documents uploaded yet</p>
-                </div>
-                } @else {
-                <div class="space-y-3 max-h-96 overflow-y-auto">
-                    @for (doc of documents(); track doc.filename) {
-                    <div
-                        class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                        <div class="flex items-center gap-3 flex-1 min-w-0">
-                            <div class="flex-shrink-0">
-                                @if (doc.filename.endsWith('.pdf')) {
-                                <svg class="h-8 w-8 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
-                                </svg>
-                                } @else if (doc.filename.endsWith('.docx')) {
-                                <svg class="h-8 w-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
-                                </svg>
-                                } @else {
-                                <svg class="h-8 w-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
-                                </svg>
-                                }
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 truncate">{{ doc.filename }}</p>
-                                <p class="text-xs text-gray-500">{{ formatFileSize(doc.size) }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    }
-                </div>
-                }
             </div>
         </div>
-    </main>
+        }
+    </div>
+    }
+</div>
+</main>
 </div>

@@ -1,0 +1,81 @@
+<div class="min-h-screen bg-gray-900 flex flex-col">
+    <!-- Header with Controls -->
+    <header class="bg-gray-800 shadow-lg flex-shrink-0 border-b border-gray-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-4">
+            <button (click)="goBack()" class="text-gray-300 hover:text-white">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </button>
+            <div>
+              <h1 class="text-xl font-bold text-white">{{ filename() }}</h1>
+            </div>
+          </div>
+          
+          <!-- Page Controls for PDF -->
+          @if (isPDF()) {
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-2 bg-gray-700 rounded-lg px-4 py-2">
+                <button 
+                  (click)="previousPage()"
+                  [disabled]="currentPage() <= 1"
+                  class="text-white disabled:text-gray-500 hover:text-gray-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <span class="text-white text-sm">
+                  Page {{ currentPage() }} / {{ totalPages() }}
+                </span>
+                <button 
+                  (click)="nextPage()"
+                  [disabled]="currentPage() >= totalPages()"
+                  class="text-white disabled:text-gray-500 hover:text-gray-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+              
+              <button (click)="downloadDocument()" class="btn-secondary text-sm">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </header>
+
+    <!-- Document Viewer -->
+    <main class="flex-1 overflow-auto bg-gray-900 p-4">
+      <div class="max-w-5xl mx-auto">
+        @if (loading()) {
+          <div class="flex items-center justify-center h-96">
+            <div class="text-center">
+              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+              <p class="mt-4 text-gray-400">Loading document...</p>
+            </div>
+          </div>
+        } @else if (error()) {
+          <div class="flex items-center justify-center h-96">
+            <div class="text-center max-w-md">
+              <svg class="mx-auto h-12 w-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <h3 class="mt-4 text-lg font-medium text-white">Error</h3>
+              <p class="mt-2 text-sm text-gray-400">{{ error() }}</p>
+            </div>
+          </div>
+        } @else {
+          <div class="bg-white rounded-lg shadow-2xl p-8">
+            <canvas #pdfCanvas class="w-full"></canvas>
+          </div>
+        }
+      </div>
+    </main>
+  </div>

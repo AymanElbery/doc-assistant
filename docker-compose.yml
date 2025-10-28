@@ -63,82 +63,82 @@ services:
       timeout: 5s
       retries: 5
 
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ai-docs-ollama
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_models:/root/.ollama
-    networks:
-      - ai-docs-network
-    environment:
-      - OLLAMA_NUM_PARALLEL=4
-      - OLLAMA_MAX_LOADED_MODELS=1
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 60s
-    restart: unless-stopped
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: ai-docs-ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama_models:/root/.ollama
+  #   networks:
+  #     - ai-docs-network
+  #   environment:
+  #     - OLLAMA_NUM_PARALLEL=4
+  #     - OLLAMA_MAX_LOADED_MODELS=1
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 5
+  #     start_period: 60s
+  #   restart: unless-stopped
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: ai-docs-backend
-    environment:
-      KEYCLOAK_URL: ${KEYCLOAK_URL:-http://keycloak:8080}
-      KEYCLOAK_REALM: ${KEYCLOAK_REALM:-ai-docs-assistant}
-      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID:-ai-docs-client}
-      QDRANT_HOST: ${QDRANT_HOST:-qdrant}
-      QDRANT_PORT: ${QDRANT_PORT:-6333}
-      QDRANT_COLLECTION: ${QDRANT_COLLECTION:-documents}
-      OLLAMA_HOST: ${OLLAMA_HOST:-http://ollama:11434}
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-phi3:mini}
-      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-base-en-v1.5}
-      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-http://localhost:4200}
-      MAX_TOKENS: ${MAX_TOKENS:-2048}
-      TEMPERATURE: ${TEMPERATURE:-0.7}
-      PYTHONUNBUFFERED: "1"
-    ports:
-      - "8000:8000"
-    volumes:
-      - uploaded_documents:/app/uploads
-    depends_on:
-      keycloak:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
-      ollama:
-        condition: service_healthy
-    networks:
-      - ai-docs-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    restart: unless-stopped
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: ai-docs-backend
+  #   environment:
+  #     KEYCLOAK_URL: ${KEYCLOAK_URL:-http://keycloak:8080}
+  #     KEYCLOAK_REALM: ${KEYCLOAK_REALM:-ai-docs-assistant}
+  #     KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID:-ai-docs-client}
+  #     QDRANT_HOST: ${QDRANT_HOST:-qdrant}
+  #     QDRANT_PORT: ${QDRANT_PORT:-6333}
+  #     QDRANT_COLLECTION: ${QDRANT_COLLECTION:-documents}
+  #     OLLAMA_HOST: ${OLLAMA_HOST:-http://ollama:11434}
+  #     OLLAMA_MODEL: ${OLLAMA_MODEL:-phi3:mini}
+  #     EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-base-en-v1.5}
+  #     API_CORS_ORIGINS: ${API_CORS_ORIGINS:-http://localhost:4200}
+  #     MAX_TOKENS: ${MAX_TOKENS:-2048}
+  #     TEMPERATURE: ${TEMPERATURE:-0.7}
+  #     PYTHONUNBUFFERED: "1"
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - uploaded_documents:/app/uploads
+  #   depends_on:
+  #     keycloak:
+  #       condition: service_healthy
+  #     qdrant:
+  #       condition: service_healthy
+  #     ollama:
+  #       condition: service_healthy
+  #   networks:
+  #     - ai-docs-network
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #     start_period: 30s
+  #   restart: unless-stopped
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: ai-docs-frontend
-    ports:
-      - "4200:80"
-    depends_on:
-      backend:
-        condition: service_healthy
-    networks:
-      - ai-docs-network
-    environment:
-      - API_URL=http://localhost:8000
-      - KEYCLOAK_URL=http://localhost:8080
-    restart: unless-stopped
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: ai-docs-frontend
+  #   ports:
+  #     - "4200:80"
+  #   depends_on:
+  #     backend:
+  #       condition: service_healthy
+  #   networks:
+  #     - ai-docs-network
+  #   environment:
+  #     - API_URL=http://localhost:8000
+  #     - KEYCLOAK_URL=http://localhost:8080
+  #   restart: unless-stopped
 
 volumes:
   postgres_data:
@@ -147,9 +147,9 @@ volumes:
   qdrant_data:
     name: ai-docs-qdrant-data
     driver: local
-  ollama_models:
-    name: ai-docs-ollama-models
-    driver: local
+  # ollama_models:
+  #   name: ai-docs-ollama-models
+  #   driver: local
   uploaded_documents:
     name: ai-docs-uploaded-docs
     driver: local
