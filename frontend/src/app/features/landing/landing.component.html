@@ -1,0 +1,287 @@
+<!-- Hero Section -->
+<section class="relative min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100 overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%230ea5e9%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
+  
+  <!-- Navigation -->
+  <nav class="relative z-10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-gradient-to-r from-primary-600 to-primary-800 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+        </div>
+        <span class="text-2xl font-bold text-gray-900">AI DOC Assistant</span>
+      </div>
+      <div class="hidden md:flex space-x-8">
+        <a href="#features" class="text-gray-600 hover:text-primary-600 transition-colors">Features</a>
+        <a href="#how-it-works" class="text-gray-600 hover:text-primary-600 transition-colors">How it Works</a>
+        <a href="#pricing" class="text-gray-600 hover:text-primary-600 transition-colors">Pricing</a>
+      </div>
+      <button (click)="navigateToChat()" class="btn-primary">
+        Get Started
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 px-6 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-4xl mx-auto">
+        <!-- Badge -->
+        <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-800 text-sm font-medium mb-8">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          Powered by Advanced AI & RAG Technology
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+          Transform Your
+          <span class="bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
+            Documents
+          </span>
+          <br>Into Intelligent Conversations
+        </h1>
+
+        <!-- Subheading -->
+        <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+          Upload your documents and chat with them using our advanced AI-powered RAG system. 
+          Get instant, accurate answers from your own knowledge base.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          <button (click)="navigateToChat()" class="bg-primary-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-primary-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            Start Chatting Now
+            <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </button>
+          <button (click)="navigateToUpload()" class="bg-white text-primary-600 px-8 py-4 rounded-xl text-lg font-semibold border-2 border-primary-600 hover:bg-primary-50 transition-all duration-300 transform hover:scale-105">
+            Upload Documents
+            <svg class="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-primary-600 mb-2">99.9%</div>
+            <div class="text-gray-600">Accuracy Rate</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-primary-600 mb-2">10K+</div>
+            <div class="text-gray-600">Documents Processed</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-primary-600 mb-2">24/7</div>
+            <div class="text-gray-600">Available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Elements -->
+  <div class="absolute top-20 left-10 w-20 h-20 bg-primary-200 rounded-full opacity-20 animate-pulse"></div>
+  <div class="absolute top-40 right-20 w-16 h-16 bg-primary-300 rounded-full opacity-30 animate-bounce"></div>
+  <div class="absolute bottom-20 left-20 w-12 h-12 bg-primary-400 rounded-full opacity-25 animate-pulse"></div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Powerful Features for
+        <span class="text-primary-600">Modern Teams</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Everything you need to turn your documents into an intelligent knowledge base
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Feature 1 -->
+      <div class="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Multi-Format Support</h3>
+        <p class="text-gray-600">Upload PDFs, Word docs, Excel files, and more. Our AI processes everything seamlessly.</p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Natural Conversations</h3>
+        <p class="text-gray-600">Chat with your documents using natural language. Ask questions, get summaries, and find insights.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Lightning Fast</h3>
+        <p class="text-gray-600">Get instant responses powered by advanced GPU acceleration and optimized AI models.</p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Smart Analytics</h3>
+        <p class="text-gray-600">Track usage patterns, popular queries, and document insights with detailed analytics.</p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Secure & Private</h3>
+        <p class="text-gray-600">Your documents are encrypted and secure. We never share your data with third parties.</p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Easy Integration</h3>
+        <p class="text-gray-600">Simple API and webhooks for seamless integration with your existing workflows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        How It Works
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Get started in minutes with our simple 3-step process
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Step 1 -->
+      <div class="text-center">
+        <div class="w-20 h-20 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Upload Documents</h3>
+        <p class="text-gray-600">Drag and drop your PDFs, Word docs, or other files. Our AI will process and index them automatically.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="text-center">
+        <div class="w-20 h-20 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">AI Processing</h3>
+        <p class="text-gray-600">Our advanced RAG system creates intelligent embeddings and builds a searchable knowledge base.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="text-center">
+        <div class="w-20 h-20 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Start Chatting</h3>
+        <p class="text-gray-600">Ask questions, get summaries, and extract insights from your documents using natural language.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-primary-600 to-primary-800">
+  <div class="max-w-4xl mx-auto text-center px-6">
+    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+      Ready to Transform Your Documents?
+    </h2>
+    <p class="text-xl text-primary-100 mb-8">
+      Join thousands of users who are already using AI to unlock the power of their documents.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button (click)="navigateToChat()" class="bg-white text-primary-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+        Start Free Trial
+      </button>
+      <button (click)="navigateToUpload()" class="border-2 border-white text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300">
+        Upload Documents
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center space-x-2 mb-4">
+          <div class="w-8 h-8 bg-gradient-to-r from-primary-600 to-primary-800 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <span class="text-xl font-bold">AI RAG Assistant</span>
+        </div>
+        <p class="text-gray-400">Transform your documents into intelligent conversations with advanced AI technology.</p>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Product</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Integrations</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Support</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Company</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2024 AI RAG Assistant. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

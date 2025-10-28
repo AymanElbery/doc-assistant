@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     
     # Ollama Settings
     OLLAMA_HOST: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "llama3.1:8b" #"llama3.1:8b" #"qwen2.5:3b" #"phi3:mini"
+    OLLAMA_MODEL: str = "llama3.1:8b" #"" #"llama3.1:8b" #"qwen2.5:3b" #"phi3:mini"
     EMBEDDING_MODEL: str = "BAAI/bge-base-en-v1.5"
     MAX_TOKENS: int = 2048
     TEMPERATURE: float = 0.7

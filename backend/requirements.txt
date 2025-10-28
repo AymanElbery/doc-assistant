@@ -1,29 +1,54 @@
+# AI Documents Assistant - Backend Requirements
+# Optimized for Windows with NVIDIA GPU support (CUDA 12.0+)
+# GPU: NVIDIA GeForce (16GB VRAM) - CUDA acceleration enabled
+# Python: 3.14.0 on Windows 11 AMD64
+#
+# INSTALLATION INSTRUCTIONS:
+# 1. First install GPU packages: .\install-gpu-packages.ps1
+# 2. Then install other requirements: pip install -r backend/requirements.txt
+
 # FastAPI and server
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
-python-multipart==0.0.9
-pydantic==2.9.2
-pydantic-settings==2.5.2
-httpx==0.27.2
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+pydantic>=2.9.0
+pydantic-settings>=2.5.0
+httpx>=0.27.0
 
 # Authentication
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-cryptography==41.0.7
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+cryptography>=41.0.0
 
-# Document Processing (FIXED: Correct package names)
-PyPDF2==3.0.1
-python-docx==1.1.2
-openpyxl==3.1.5
+# Document Processing (Windows optimized)
+PyPDF2>=3.0.0
+python-docx>=1.1.0
+openpyxl>=3.1.0
+# Additional Windows document support
+python-magic-bin>=0.4.0  # Windows binary for python-magic
+chardet>=5.0.0  # Better encoding detection on Windows
 
-# Vector Database
-qdrant-client==1.11.3
+# Vector Database (Python 3.14 compatible)
+qdrant-client>=1.7.0  # Use latest version that supports Python 3.14
 
-# Embeddings & ML
-sentence-transformers==3.0.1
-transformers==4.44.2
-torch==2.4.1
-safetensors==0.4.5
+# Embeddings & ML (Windows optimized with CUDA support)
+sentence-transformers>=3.0.0
+transformers>=4.44.0
+# PyTorch with CUDA support - install separately with install-gpu-packages.ps1
+# torch>=2.9.0  # Install via: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# torchvision>=0.20.0
+# torchaudio>=2.9.0
+safetensors>=0.4.0  # Use latest version
+# Additional GPU acceleration libraries
+accelerate>=0.30.0  # For better GPU utilization
 
-# Utilities
-aiofiles==24.1.0
+# Windows-specific utilities
+aiofiles>=24.0.0
+# Better path handling on Windows
+pathlib2>=2.3.0
+# Windows service support (if needed)
+pywin32>=306; sys_platform == "win32"
+
+# GPU monitoring and optimization (optional)
+# nvidia-ml-py3>=11.0.0  # For GPU monitoring - may need compilation
+psutil>=5.9.0  # System monitoring

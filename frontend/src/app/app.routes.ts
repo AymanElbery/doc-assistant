@@ -4,7 +4,11 @@ import { authGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
     {
       path: '',
-      redirectTo: '/chat',
+      loadComponent: () => import('./features/landing/landing.component').then(m => m.LandingComponent)
+    },
+    {
+      path: 'home',
+      redirectTo: '',
       pathMatch: 'full'
     },
     // {
@@ -23,6 +27,6 @@ export const routes: Routes = [
     },
     {
       path: '**',
-      redirectTo: '/chat'
+      redirectTo: ''
     }
 ];

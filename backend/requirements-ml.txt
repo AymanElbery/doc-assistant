@@ -1,0 +1,16 @@
+# AI Documents Assistant - ML Requirements (Install after basic requirements)
+# GPU-accelerated ML packages for Windows
+
+# Embeddings & ML (Windows optimized with CUDA support)
+sentence-transformers>=3.0.0
+transformers>=4.44.0
+# PyTorch with CUDA support - install separately with install-gpu-packages.ps1
+# torch>=2.9.0  # Install via: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# torchvision>=0.20.0
+# torchaudio>=2.9.0
+safetensors>=0.4.0  # Use latest version
+# Additional GPU acceleration libraries
+accelerate>=0.30.0  # For better GPU utilization
+
+# Optional GPU monitoring (may require compilation)
+# nvidia-ml-py3>=11.0.0  # For GPU monitoring - install manually if needed
